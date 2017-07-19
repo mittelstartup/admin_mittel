@@ -11,21 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('templetes/home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        // Uses first & second Middleware
+    });
+
+    Route::get('/home', function () {
+        return view('templetes/home');
+    });
+
+    Route::get('charts', function () {
+        return view('templetes/charts');
+    });
+
+    Route::get('cadastros_incompletos', function () {
+        return view('templetes/charts');
+    });
+
+    Route::get('/usuarios/listar', 'UserController@list_all');
+    Route::resource('/usuarios', 'UserController');
+
+    Route::get('/', 'HomeController@index')->name('home');
 });
 
-Route::get('charts', function () {
-    return view('templetes/charts');
-});
-
-Route::get('listar_alunos', function () {
-    return view('students/list_all');
-});
-
-Route::get('cadastros_incompletos', function () {
-    return view('templetes/charts');
-});
-
-Route::get('/usuarios/listar', 'UserController@list_all');
-Route::resource('/usuarios', 'UserController');
+Auth::routes();
