@@ -17,9 +17,9 @@ class UserController extends Controller
     }
 
     public function list_all(){
-        $users = DB::select('select * from PUBLIC.users');
-//        $users = User::all()->sortBy('id');
-//            ->except(Auth::user()->id);
+//        $users = DB::select('select * from PUBLIC.users');
+        $users = User::all()->sortBy('id')
+                    ->except(Auth::user()->id);
         $title = "Lista de Estudantes";
         return view('students.list_all', compact('title', 'users'));
     }
